@@ -8,6 +8,7 @@ import { z, ZodSchema } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../store/redux/userAction';
+import { useUserStore } from '../store/zostands/store';
 
 
 const loginSchema: ZodSchema = z.object({
@@ -29,6 +30,7 @@ interface LoginProps {
 
 const LoginScreen: FC<LoginProps> = ({navigation}) => {
   const despatch = useDispatch()
+  const setUsername = useUserStore(state => state.setUsername)
 
  const { control, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     defaultValues: {
@@ -42,6 +44,7 @@ const LoginScreen: FC<LoginProps> = ({navigation}) => {
   const onSubmit = (data: any) => {
     console.log(data);
         despatch(loginAction(data.firstName))
+        setUsername(data.firstName);
     navigation.dispatch(
       CommonActions.reset({
         index: 1,
