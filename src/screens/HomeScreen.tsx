@@ -4,11 +4,9 @@ import { StyleSheet,  TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useCounterStore, useUserStore } from '../store/zostands/store';
 
-import {View, Text, Card, Button, Colors, Avatar} from 'react-native-ui-lib';
-import darkTheme from '../theme/darkColors';
+import {View, Text,  Colors} from 'react-native-ui-lib';
 import { toggleTheme } from '../theme/theme';
-import { string } from 'prop-types';
-import { set } from 'react-hook-form';
+
 
 interface HomeProps {
   navigation :  NavigationProp<any>;
