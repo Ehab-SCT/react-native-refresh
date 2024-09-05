@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import AButton from '../components/AButton';
 import { z, ZodSchema } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../store/redux/userAction';
 
 
 const loginSchema: ZodSchema = z.object({
@@ -26,6 +28,7 @@ interface LoginProps {
 }
 
 const LoginScreen: FC<LoginProps> = ({navigation}) => {
+  const despatch = useDispatch()
 
  const { control, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     defaultValues: {
@@ -38,6 +41,7 @@ const LoginScreen: FC<LoginProps> = ({navigation}) => {
 
   const onSubmit = (data: any) => {
     console.log(data);
+        despatch(loginAction(data.firstName))
     navigation.dispatch(
       CommonActions.reset({
         index: 1,

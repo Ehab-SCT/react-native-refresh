@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
  import { NavigationProp } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 
 interface HomeProps {
   navigation :  NavigationProp<any>;
@@ -8,10 +10,16 @@ interface HomeProps {
 
 
 const HomeScreen: FC<HomeProps> = ({ navigation }) => {
+const isLogin = useSelector(state => state.userData.isLogin) 
+const username = useSelector(state => state.userData.username) 
+
+
+console.log("isLogin", isLogin)
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HomeScreen</Text>
+      <Text style={styles.title}>Username from redux: {username}</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Details")}>
         <Text style={styles.buttonText}>Go to Details Screen</Text>
       </TouchableOpacity>
