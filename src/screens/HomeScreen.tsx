@@ -1,9 +1,14 @@
-import React, {FC, useEffect} from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {FC, useEffect, useState} from 'react';
+import { StyleSheet,  TouchableOpacity } from 'react-native';
  import { NavigationProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { useCounterStore, useUserStore } from '../store/zostands/store';
 
+import {View, Text, Card, Button, Colors, Avatar} from 'react-native-ui-lib';
+import darkTheme from '../theme/darkColors';
+import { toggleTheme } from '../theme/theme';
+import { string } from 'prop-types';
+import { set } from 'react-hook-form';
 
 interface HomeProps {
   navigation :  NavigationProp<any>;
@@ -24,10 +29,10 @@ const logZusValue = () => {
 const HomeScreen: FC<HomeProps> = ({ navigation }) => {
 const isLogin = useSelector(state => state.userData.isLogin) 
 const username = useSelector(state => state.userData.username);
-const zusUsername = useUserStore(state=> state.username)
+const zusUsername = useUserStore(state=> state.username);
 const increment = useCounterStore(state => state.incrementAsync)
 const count = useCounterStore(state => state.count)
-
+const [theme, setTheme] = useState("")
 console.log("isLogin", isLogin)
 
 useEffect(() => {
@@ -35,14 +40,32 @@ useEffect(() => {
 
 }, [])
 
+
+
+console.log("first", Colors.getScheme())
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{count}</Text>
+    <View  style={styles.container}>
+      <Text  style={styles.title}>{count}</Text>
       <Text style={styles.title}>Username from redux: {username}</Text>
-      <Text style={styles.title}>Username from zustands: {zusUsername}</Text>
+      <Text textColor style={styles.title}>Username from zustands: {zusUsername}</Text>
       <TouchableOpacity style={styles.button} onPress={()=> increment()}>
         <Text style={styles.buttonText}>Go to Details Screen</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity  style={[styles.button, {marginTop: 20}]} onPress={()=> {
+          if(theme === "dark"){
+            setTheme("light")
+            toggleTheme(theme)
+          }else{
+            setTheme("dark")
+            toggleTheme(theme)
+          }
+      } }>
+        <Text  style={styles.buttonText}>Change Theme</Text>
+      </TouchableOpacity>
+
+
     </View>
   )
 }
