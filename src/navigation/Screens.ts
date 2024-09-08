@@ -17,20 +17,17 @@ export const screensConfig = [
       headerShown: false,
     },
   },
-];
+]
 
 export const tabsConfig = [
   {
     name: 'Home',
     component: HomeScreen,
-    options: {
-
-    },
+    options: {},
   },
   {
     name: 'Details',
     component: DetailsScreen,
-    options: {
-    },
+    options: {},
   },
 ];

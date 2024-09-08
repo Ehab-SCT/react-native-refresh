@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import { StyleSheet,  TouchableOpacity } from 'react-native';
  import { NavigationProp } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { useCounterStore, useUserStore } from '../store/zostands/store';
+import { storage, useCounterStore, useUserStore } from '../store/zostands/store';
 
 import {View, Text,  Colors} from 'react-native-ui-lib';
 import { toggleTheme } from '../theme/theme';
@@ -12,7 +12,7 @@ interface HomeProps {
   navigation :  NavigationProp<any>;
 }
 
-// get the value from zustands from the out of the component 
+// get the value from zustands from the out of the component
 
 const logZusValue = () => {
   const count = useCounterStore.getState().count;
@@ -25,13 +25,14 @@ const logZusValue = () => {
 
 
 const HomeScreen: FC<HomeProps> = ({ navigation }) => {
-const isLogin = useSelector(state => state.userData.isLogin) 
+const isLogin = useSelector(state => state.userData.isLogin);
 const username = useSelector(state => state.userData.username);
 const zusUsername = useUserStore(state=> state.username);
-const increment = useCounterStore(state => state.incrementAsync)
-const count = useCounterStore(state => state.count)
-const [theme, setTheme] = useState("")
-console.log("isLogin", isLogin)
+const increment = useCounterStore(state => state.incrementAsync);
+const count = useCounterStore(state => state.count);
+const [theme, setTheme] = useState("");
+const mmkvUsername = storage.getString('user.name') // 'Marc'
+
 
 useEffect(() => {
   logZusValue()
@@ -47,6 +48,7 @@ console.log("first", Colors.getScheme())
       <Text  style={styles.title}>{count}</Text>
       <Text style={styles.title}>Username from redux: {username}</Text>
       <Text textColor style={styles.title}>Username from zustands: {zusUsername}</Text>
+      <Text textColor style={styles.title}>Username from mmkv: {mmkvUsername}</Text>
       <TouchableOpacity style={styles.button} onPress={()=> increment()}>
         <Text style={styles.buttonText}>Go to Details Screen</Text>
       </TouchableOpacity>
