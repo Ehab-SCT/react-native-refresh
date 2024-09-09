@@ -74,7 +74,7 @@ function App(): React.JSX.Element {
             <Toast
               visible={activeToast.visible}
               position={"bottom"}
-              backgroundColor={"#270909"}
+              backgroundColor={"#186aa8"}
               message={activeToast.message}
               messageStyle={{ color: "#fff" }}
               swipeable={true}
